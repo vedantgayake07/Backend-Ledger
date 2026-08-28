@@ -22,13 +22,20 @@ const userSchema = mongoose.Schema(
             required: [true, "password is required for creating acc"],
             minlength: [8, "password should be more than 8 chars long"],
             select: false //while accessing user data password will not be provided
+        },
+
+        systemUser : {
+            type : Boolean,
+            default : false ,//have to set true from db (mongodb)
+            immutable : true ,
+            select : false
         }
     }, {
     timestamps: true // so when was user created and updated will be stored
 })
 
 userSchema.pre("save" , async function () //so we are telling mongoose before saving a user run this function
-    {// this referes to the current user being saved in the db
+    {// 'this' referes to the current user being saved in the db
     if(!this.isModified("password")) //its preventing hashing already hashed password
     {
         return; 
