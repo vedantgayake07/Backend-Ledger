@@ -3,7 +3,9 @@ const authMiddleware = require("../middlewares/auth.middleware")
 const transactionController = require("../controllers/transaction.controller")
 
 const router = express.Router();
-
+/**
+ * -Post /api/transactions/
+ */
 router.post("/",authMiddleware.authMiddleware , transactionController.transactionController)
 
 router.post("/system/initialfunds",authMiddleware.authSystemUserMiddleware ,transactionController.createInitialFunds)
